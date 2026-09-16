@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, readdir, rm } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, test } from "node:test";
@@ -141,6 +141,31 @@ test("complete rejects missing and already-done quests", async () => {
     assert.equal(err.code, "ALREADY_COMPLETE");
     return true;
   });
+});
+
+test("loadAll skips non-quest markdown so list and add still work", async () => {
+  const store = await tempStore();
+  await store.add("Keep me");
+  await writeFile(
+    path.join(store.questsDir, "notes.md"),
+    "# stray notes\nthis is not a quest file\n",
+    "utf8",
+  );
+
+  const listed = await store.list();
+  assert.deepEqual(
+    listed.map((q) => q.id),
+    ["1"],
+  );
+  assert.equal(listed[0].title, "Keep me");
+
+  const added = await store.add("Still works");
+  assert.equal(added.id, "2");
+  const after = await store.list();
+  assert.deepEqual(
+    after.map((q) => q.id),
+    ["1", "2"],
+  );
 });
 
 test("store methods fail before init", async () => {

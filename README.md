@@ -6,7 +6,7 @@ Quests live as ordinary markdown files on disk. No account, no cloud, no trackin
 
 ## Install
 
-Requires Node.js 18+.
+Requires Node.js 18.11+.
 
 ```bash
 git clone https://github.com/78tacos/questlog.git
@@ -112,7 +112,7 @@ completed:
 eight glasses
 ```
 
-Frontmatter keys: `id`, `status` (`open` or `completed`), `created`, `completed`. The H1 is the title; anything after it is notes. Hand-edits are fine as long as those keys stay put.
+Frontmatter keys: `id`, `status` (`open` or `completed`), `created`, `completed`. The H1 is the title; anything after it is notes. Hand-edits are fine as long as those keys stay put. Markdown files without that frontmatter are skipped (with a warning) so a stray note cannot brick the store.
 
 ## Tests
 

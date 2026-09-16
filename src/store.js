@@ -152,7 +152,15 @@ export class QuestStore {
         continue;
       }
       const raw = await readFile(path.join(this.questsDir, name), "utf8");
-      quests.push({ ...parseQuest(raw), filename: name });
+      try {
+        quests.push({ ...parseQuest(raw), filename: name });
+      } catch (err) {
+        if (err instanceof QuestlogError && err.code === "INVALID_FILE") {
+          process.stderr.write(`questlog: skipping invalid quest file ${name}\n`);
+          continue;
+        }
+        throw err;
+      }
     }
     return quests.sort((a, b) => Number(a.id) - Number(b.id));
   }
@@ -172,7 +180,15 @@ export class QuestStore {
    * @param {Quest} quest
    */
   async writeQuest(filename, quest) {
-    const target = path.join(this.questsDir, filename);
+    const safeName = path.basename(filename);
+    const questsRoot = path.resolve(this.questsDir);
+    const target = path.resolve(questsRoot, safeName);
+    if (path.dirname(target) !== questsRoot) {
+      throw new QuestlogError(
+        `Refusing to write outside the quests directory: ${filename}`,
+        "INVALID_FILENAME",
+      );
+    }
     await writeFile(target, serializeQuest(quest), "utf8");
   }
 }

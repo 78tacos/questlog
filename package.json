@@ -28,6 +28,6 @@
     "questlog": "node bin/questlog.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.11.0"
   }
 }
