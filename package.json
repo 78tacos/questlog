@@ -1,0 +1,33 @@
+{
+  "name": "questlog",
+  "version": "1.0.0",
+  "description": "Markdown-backed personal quest and habit CLI",
+  "keywords": [
+    "cli",
+    "quests",
+    "habits",
+    "markdown",
+    "todo"
+  ],
+  "license": "MIT",
+  "author": "78tacos",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/78tacos/questlog.git"
+  },
+  "type": "module",
+  "bin": {
+    "questlog": "./bin/questlog.js"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "questlog": "node bin/questlog.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
