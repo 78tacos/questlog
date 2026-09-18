@@ -1,8 +1,8 @@
 import { access, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-export const DEFAULT_DIRNAME = ".questlog";
-export const QUESTS_DIRNAME = "quests";
+const DEFAULT_DIRNAME = ".questlog";
+const QUESTS_DIRNAME = "quests";
 
 const INIT_README = `# questlog
 
@@ -127,7 +127,7 @@ export class QuestStore {
       status: /** @type {const} */ ("completed"),
       completed: new Date().toISOString(),
     };
-    await this.writeQuest(quest.filename ?? `${quest.id}.md`, updated);
+    await this.writeQuest(quest.filename, updated);
     return updated;
   }
 
