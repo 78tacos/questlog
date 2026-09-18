@@ -9,7 +9,7 @@ const wrap = (code) => {
   return (text) => (useColor ? `\x1b[${code}m${text}\x1b[0m` : text);
 };
 
-export const c = {
+const c = {
   bold: wrap("1"),
   dim: wrap("2"),
   red: wrap("31"),
@@ -21,7 +21,7 @@ export const c = {
 
 /**
  * @param {import("./store.js").Quest[]} quests
- * @param {{ includeCompleted?: boolean, storeDir?: string }} [options]
+ * @param {{ includeCompleted?: boolean }} [options]
  */
 export function formatList(quests, options = {}) {
   if (quests.length === 0) {
@@ -55,7 +55,7 @@ export function formatList(quests, options = {}) {
 }
 
 /** @param {import("./store.js").Quest} quest */
-export function formatQuestRow(quest) {
+function formatQuestRow(quest) {
   const done = quest.status === "completed";
   const mark = done ? c.green("✓") : c.yellow("○");
   const id = c.cyan(String(quest.id).padStart(2, " "));
