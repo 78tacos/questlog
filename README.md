@@ -2,7 +2,7 @@
 
 Markdown-backed personal quest and habit CLI.
 
-Quests live as ordinary markdown files on disk. No account, no cloud, no tracking — just a tiny local log you can `cat`, `grep`, and git.
+Quests are ordinary markdown files on disk. You can read them with `cat`, `grep`, or git.
 
 ## Install
 
@@ -112,7 +112,7 @@ completed:
 eight glasses
 ```
 
-Frontmatter keys: `id`, `status` (`open` or `completed`), `created`, `completed`. The H1 is the title; anything after it is notes. Hand-edits are fine as long as those keys stay put. Markdown files without that frontmatter are skipped (with a warning) so a stray note cannot brick the store.
+Frontmatter keys: `id`, `status` (`open` or `completed`), `created`, `completed`. The H1 is the title; anything after it is notes. Hand-edits are fine if those keys stay in place. Markdown files without that frontmatter are skipped, with a warning on stderr.
 
 ## Tests
 
